@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.OrderdetailMapper">
+
+    <insert id="insert">
+        insert into order_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="foodId != null">food_id,</if>
+            <if test="number != null">number,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="foodId != null">#{foodId},</if>
+            <if test="number != null">#{number},</if>
+        </trim>
+    </insert>
+
+    <delete id="deleteById">
+        delete from shopcar
+        where  id = #{id}
+    </delete>
+
+    <delete id="deleteAll">
+        delete from shopcar
+        <where>
+            <if test="orderId != null"> and order_id = #{orderId} </if>
+        </where>
+    </delete>
+
+    <select id="selectAll" resultType="com.example.entity.Orderdetail">
+        select *
+        from shopcar
+        <where>
+            <if test="id != null"> and id= #{id}</if>
+            <if test="orderId != null"> and order_id = #{orderId} </if>
+        </where>
+    </select>
+
+
+</mapper>
