@@ -10,7 +10,7 @@
 
     <select id="selectAll" resultType="com.example.entity.Comment">
         select
-        comment.*, user.name as userName, business.name as acceptName
+        comment.*, user.name as userName, business.businessname as acceptName
         from comment
         left join user
         on comment.user_id = user.id
@@ -21,7 +21,7 @@
         <where>
             <if test="content != null"> and comment.content like concat('%', #{content}, '%')</if>
             <if test="userName != null"> and user.name like concat('%', #{userName}, '%')</if>
-            <if test="acceptName != null"> and business.name like concat('%', #{acceptName}, '%')</if>
+            <if test="acceptName != null"> and business.businessname like concat('%', #{acceptName}, '%')</if>
         </where>
         order by id desc
     </select>
@@ -37,7 +37,7 @@
         select
         <include refid="Base_Column_List" />
         from comment
-        where user_id = #{userId} or accept_id = #{userId}
+        where user_id = #{userId}
     </select>
 
     <delete id="deleteById">
